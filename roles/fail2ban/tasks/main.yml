@@ -1,0 +1,17 @@
+---
+- name: Install fail2ban
+  ansible.builtin.apt:
+    pkg: 
+     - fail2ban
+    update_cache: yes
+
+- name: Deploy fail2ban ssh config
+  ansible.builtin.template:
+      src: templates/ssh.local.j2
+      dest: /etc/fail2ban/jail.d/ssh.local
+
+- name: Restart automatic upgrades service
+  ansible.builtin.service:
+    name: fail2ban
+    state: restarted
+    

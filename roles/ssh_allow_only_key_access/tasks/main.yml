@@ -1,0 +1,10 @@
+---
+- name: Deploy user sshd config
+  ansible.builtin.template:
+      src: templates/00-user.conf.j2
+      dest: /etc/ssh/sshd_config.d/00-user.conf
+
+- name: Restart sshd
+  ansible.builtin.service:
+    name: sshd
+    state: restarted

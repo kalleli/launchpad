@@ -1,0 +1,15 @@
+---
+- name: Deploy primary public key
+  ansible.posix.authorized_key:
+    user: '{{ ansible_user }}'
+    state: present
+    key: "{{ lookup('file', '{{ ssh_public_key }}') }}"
+    exclusive: true #Remove this line if you want to keep existing public keys
+  when: ssh_public_key is defined
+
+- name: Deploy backup public key
+  ansible.posix.authorized_key:
+    user: '{{ ansible_user }}'
+    state: present
+    key: "{{ lookup('file', '{{ ssh_backup_public_key }}') }}"
+  when: ssh_backup_public_key is defined

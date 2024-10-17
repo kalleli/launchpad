@@ -1,0 +1,8 @@
+---
+- name: Allow lighthouse QUICK protocol
+  community.general.ufw:
+    rule: allow
+    port: '{{ firewall_lighthouse_quick_port }}'
+    proto: udp
+    comment: 'Lighthouse QUICK port'
+  when: firewall_lighthouse_quick_port is defined

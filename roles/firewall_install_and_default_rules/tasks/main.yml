@@ -1,0 +1,51 @@
+---
+- name: Install ufw (uncomplicated firewall)
+  ansible.builtin.apt:
+    pkg: 
+     - ufw
+    update_cache: yes
+
+- name: Default deny incomming traffic
+  community.general.ufw:
+    direction: incoming
+    policy: deny
+    comment: 'Deny all incoming traffic'
+
+- name: Allow ssh
+  community.general.ufw:
+    rule: allow
+    port: '22'
+    proto: tcp
+    comment: 'Allow SSH'
+
+- name: Allow execution client (TCP)
+  community.general.ufw:
+    rule: allow
+    port: '{{ firewall_execution_client_port }}'
+    proto: tcp
+    comment: 'Execution client port, standardized by Rocket Pool (TCP)'
+
+- name: Allow execution client (UDP)
+  community.general.ufw:
+    rule: allow
+    port: '{{ firewall_execution_client_port }}'
+    proto: udp
+    comment: 'Execution client port, standardized by Rocket Pool (UDP)'
+
+- name: Allow consensus client (TCP)
+  community.general.ufw:
+    rule: allow
+    port: '{{ firewall_consensus_client_port }}'
+    proto: tcp
+    comment: 'Consensus client port, standardized by Rocket Pool (TCP)'
+
+- name: Allow consensus client (UDP)
+  community.general.ufw:
+    rule: allow
+    port: '{{ firewall_consensus_client_port }}'
+    proto: udp
+    comment: 'Consensus client port, standardized by Rocket Pool (UDP)'
+
+- name: Enable UFW
+  community.general.ufw:
+    state: enabled

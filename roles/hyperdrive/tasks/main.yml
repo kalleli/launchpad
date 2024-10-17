@@ -1,0 +1,43 @@
+---
+- name: Get architecture
+  command: 'dpkg --print-architecture'
+  register: architecture_output
+  
+- name: Remove hyperdrive-beta repository if present
+  ansible.builtin.apt_repository:
+    repo: 'deb [arch={{ architecture_output.stdout }} signed-by=/etc/apt/keyrings/hyperdrive-beta.asc] {{ hyperdrive_beta_repository }} any main'
+    state: absent
+
+- name: Remove hyperdrive-beta src repository if present
+  ansible.builtin.apt_repository:
+    repo: 'deb-src [arch={{ architecture_output.stdout }} signed-by=/etc/apt/keyrings/hyperdrive-beta.asc] {{ hyperdrive_beta_repository }} any main'
+    state: absent
+
+- name: Create the apt keyrings directory if it doesn't exist
+  ansible.builtin.file:
+    path: /etc/apt/keyrings
+    state: directory
+    mode: '0644'
+
+- name: Download the hyperdrive GPG apt key
+  ansible.builtin.get_url:
+    url: 'https://packagecloud.io/nodeset/hyperdrive/gpgkey'
+    dest: /etc/apt/keyrings/hyperdrive.asc
+    mode: '0644'
+    force: true
+
+- name: Add hyperdrive repository
+  ansible.builtin.apt_repository:
+    repo: 'deb [arch={{ architecture_output.stdout }} signed-by=/etc/apt/keyrings/hyperdrive.asc] {{ hyperdrive_repository }} any main'
+    state: present
+
+- name: Add hyperdrive src repository
+  ansible.builtin.apt_repository:
+    repo: 'deb-src [arch={{ architecture_output.stdout }} signed-by=/etc/apt/keyrings/hyperdrive.asc] {{ hyperdrive_repository }} any main'
+    state: present
+
+- name: Install hyperdrive
+  ansible.builtin.apt:
+    pkg: 
+     - hyperdrive
+    update_cache: yes

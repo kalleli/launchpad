@@ -1,0 +1,71 @@
+- name: Get rocketpool docker network subnet
+  community.docker.docker_network_info:
+    name: 'rocketpool_net'
+  register: rocketpool_docker_net_info
+
+- set_fact:
+    rocketpool_docker_subnet: "{{ rocketpool_docker_net_info.network | regex_search(\"Subnet\\': \\'([0-9./]+)\", '\\1') | first }}"
+  when: rocketpool_docker_net_info.exists
+
+- name: Allow Prometheus access to Execution Client (Rocketpool)
+  community.general.ufw:
+    rule: allow
+    port: 9105
+    from: '{{ docker_subnet }}'
+    proto: any
+    comment: 'Allow Prometheus access to Execution Client (Rocketpool)'
+  when: rocketpool_docker_net_info.exists
+
+- name: Allow Prometheus access to Consensus Client (Rocketpool)
+  community.general.ufw:
+    rule: allow
+    port: 9100
+    from: '{{ docker_subnet }}'
+    proto: any
+    comment: 'Allow Prometheus access to Consensus Client (Rocketpool)'
+  when: rocketpool_docker_net_info.exists
+
+- name: Allow Prometheus access to Exporter (Rocketpool)
+  community.general.ufw:
+    rule: allow
+    port: 9103
+    from: '{{ docker_subnet }}'
+    proto: any
+    comment: 'Allow Prometheus access to Exporter (Rocketpool)'
+  when: rocketpool_docker_net_info.exists
+
+- name: Get hyperdrive docker network subnet
+  community.docker.docker_network_info:
+    name: 'hyperdrive_net'
+  register: hyperdrive_docker_net_info
+
+- set_fact:
+    rocketpool_docker_subnet: "{{ hyperdrive_docker_net_info.network | regex_search(\"Subnet\\': \\'([0-9./]+)\", '\\1') | first }}"
+  when: hyperdrive_docker_net_info.exists
+
+- name: Allow Prometheus access to Execution Client (Hyperdrive)
+  community.general.ufw:
+    rule: allow
+    port: 9105
+    from: '{{ docker_subnet }}'
+    proto: any
+    comment: 'Allow Prometheus access to Execution Client (Hyperdrive)'
+  when: hyperdrive_docker_net_info.exists
+
+- name: Allow Prometheus access to Consensus Client (Hyperdrive)
+  community.general.ufw:
+    rule: allow
+    port: 9100
+    from: '{{ docker_subnet }}'
+    proto: any
+    comment: 'Allow Prometheus access to Consensus Client (Hyperdrive)'
+  when: hyperdrive_docker_net_info.exists
+
+- name: Allow Prometheus access to Exporter (Hyperdrive)
+  community.general.ufw:
+    rule: allow
+    port: 9103
+    from: '{{ docker_subnet }}'
+    proto: any
+    comment: 'Allow Prometheus access to Exporter (Hyperdrive)'
+  when: hyperdrive_docker_net_info.exists
