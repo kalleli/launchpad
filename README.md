@@ -3,6 +3,17 @@ Launchpad is a tool for automating the preparation and securing of you rocketpoo
 
 Launchpad can be used both directly on the node or remotely from the client you use to manage your node. It connects to the node using ssh.
 
+Things launchpad do include
+* Setting up swap
+* Installs a firewall and creates rules
+* Installs and configures fail2ban
+* Installs and configures automatic updates
+* Deploys ssh keys and hardens ssh
+* Installs rocketpool or nodeset (hyperdrive) CLI
+
+I hope to add support for
+* Tailscale
+
 ## Supported distributions and architectures
 For now I would only recommend using launchpad with Debian Bookworm and amd64 systems.
 
