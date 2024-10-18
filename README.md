@@ -3,6 +3,9 @@ Launchpad is a tool for automating the preparation and securing of you rocketpoo
 
 Launchpad can be used both directly on the node or remotely from the client you use to manage your node. It connects to the node using ssh.
 
+## Supported distributions and architectures
+For now I would only recommend using launchpad with Debian Bookworm and amd64 systems.
+
 ## Prerequisites
 Before starting you need to have completed a fresh install of one of the supported operating systems, either on your own hardware or a vps. If you plan to run launchpad remotely you need to have selected to install the ssh server in the OS installation steps.
 
@@ -96,9 +99,6 @@ Run the following:
 ansible-playbook setup_nodeset_node.yml -i hosts.yml --ask-become
 ´´´
 If its the first time you ssh into the node it will ask you to confirm the fingerprint, simply answer yes.
-
-## Support
-For now I would only recommend using this repo with Debian and x64 systems.
 
 ## For newbies
 * Uncomment: If the character # appears on a line the rest of the text on that line is ignored. If the documentation tells you to uncomment a line, it means you should remove the first occurence of #.
