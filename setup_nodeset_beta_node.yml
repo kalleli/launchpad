@@ -1,0 +1,25 @@
+- hosts: nodeset-node
+  gather_facts: yes
+  roles:
+    # Preparing the OS
+    - role: swapfile
+      become: yes
+
+    # Securing the node
+    - role: ssh_deploy_public_key
+    - role: ssh_allow_only_key_access
+      become: yes
+    - role: automatic_updates
+      become: yes
+    - role: firewall_install_and_default_rules
+      become: yes
+    - role: fail2ban
+      become: yes
+
+    #Install hyperdrive dependencies
+    - role: docker_host
+      become: yes
+
+    #Install hyperdrive
+    - role: hyperdrive_beta
+      become: yes

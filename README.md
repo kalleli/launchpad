@@ -15,6 +15,27 @@ Running launchapd has four steps
 * Editing the hosts.yml file to match your setup and needs
 * Running either the rocketpool or nodeset playbook depending on what protocol you are going to run
 
+### tldr
+Run these commands locally on your debian node.
+
+#### Prerequirements
+```
+sudo apt update && sudo apt install ansible-core git -y
+git clone https://github.com/kalleli/launchpad.git && cd launchpad
+```
+#### Rocketpool
+```
+ansible-playbook setup_rocketpool_node.yml -i hosts.yml --ask-become
+```
+#### NodeSet
+```
+ansible-playbook setup_nodeset_node.yml -i hosts.yml --ask-become
+```
+#### NodeSet beta
+```
+ansible-playbook setup_nodeset_beta_node.yml -i hosts.yml --ask-become
+```
+
 ### Installing ansible
 #### On a client
 I suggest you follow the official ansible instructions for installing ansible on your client. They can be found [here|https://docs.ansible.com/ansible/2.9/installation_guide/intro_installation.html].
@@ -66,6 +87,13 @@ Ansible will ask you for the BECOME password. It's ansibles way of asking you fo
 Simply run the following:
 ´´´
 ansible-playbook setup_rocketpool_node.yml -i hosts.yml --ask-become
+´´´
+If its the first time you ssh into the node it will ask you to confirm the fingerprint, simply answer yes.
+
+#### NodeSet
+Run the following:
+´´´
+ansible-playbook setup_nodeset_node.yml -i hosts.yml --ask-become
 ´´´
 If its the first time you ssh into the node it will ask you to confirm the fingerprint, simply answer yes.
 
