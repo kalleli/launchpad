@@ -10,3 +10,4 @@
     dest: ~/bin/rocketpool
     mode: +x
     force: true
+    

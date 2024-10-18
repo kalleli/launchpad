@@ -10,8 +10,7 @@
       src: templates/ssh.local.j2
       dest: /etc/fail2ban/jail.d/ssh.local
 
-- name: Restart automatic upgrades service
+- name: Restart fail2ban service
   ansible.builtin.service:
     name: fail2ban
     state: restarted
-    

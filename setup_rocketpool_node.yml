@@ -1,17 +1,22 @@
 - hosts: rocketpool-node
   gather_facts: yes
-  become: yes
   roles:
     # Preparing the OS
     - role: swapfile
+      become: yes
 
     # Securing the node
     - role: ssh_deploy_public_key
     - role: ssh_allow_only_key_access
+      become: yes
     - role: automatic_updates
+      become: yes
     - role: firewall_install_and_default_rules
-    - role: firewall_rules_metrics_dashboard
+      become: yes
+    - role: firewall_rules_lighthouse
+      become: yes
     - role: fail2ban
+      become: yes
 
-    #Install rocketpool
-    - role: rocketpool
+    #Install rocketpool CLI
+    - role: rocketpool_cli
