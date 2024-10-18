@@ -1,5 +1,5 @@
 # Launchpad
-Launchpad is a tool for automating the preparation and securing of you rocketpool or nodeset node. It aims to automate everything between finishing the OS installation and [installing the smartnode stack|https://docs.rocketpool.net/guides/node/docker#installing-the-smartnode-stack].
+Launchpad is a tool for automating the preparation and securing of you rocketpool or nodeset node. It aims to automate everything between finishing the OS installation and [installing the smartnode stack](https://docs.rocketpool.net/guides/node/docker#installing-the-smartnode-stack).
 
 Launchpad can be used both directly on the node or remotely from the client you use to manage your node. It connects to the node using ssh.
 
@@ -41,7 +41,7 @@ ansible-playbook setup_nodeset_beta_node.yml -i hosts.yml --ask-become
 
 ### Installing ansible
 #### On a client
-I suggest you follow the official ansible instructions for installing ansible on your client. They can be found [here|https://docs.ansible.com/ansible/2.9/installation_guide/intro_installation.html].
+I suggest you follow the official ansible instructions for installing ansible on your client. They can be found [here][https://docs.ansible.com/ansible/2.9/installation_guide/intro_installation.html).
 
 #### Locally on your node
 To install ansible on a Debian system run the following command:
