@@ -1,4 +1,4 @@
-- hosts: nodeset-node
+- hosts: nodeset_node
   gather_facts: yes
   roles:
     # Preparing the OS
@@ -12,6 +12,10 @@
     - role: automatic_updates
       become: yes
     - role: firewall_install_and_default_rules
+      become: yes
+    - role: firewall_rules_lighthouse
+      become: yes
+    - role: firewall_rules_open_fallback_ports
       become: yes
     - role: fail2ban
       become: yes

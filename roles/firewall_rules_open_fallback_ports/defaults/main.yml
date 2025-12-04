@@ -1,0 +1,6 @@
+---
+firewall_enable_exposing_fallback: false # set this to true to open up the firewall to allow others to use the node as fallback
+firewall_fallback_allowed_network: "0.0.0.0/0"
+firewall_execution_client_api_port: "8545"
+firewall_execution_client_websocket_port: "8546"
+firewall_consensus_client_api_port: "5052"

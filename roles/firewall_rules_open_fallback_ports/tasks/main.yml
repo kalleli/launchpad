@@ -1,0 +1,27 @@
+---
+- name: Open fallback ports
+  when: firewall_enable_exposing_fallback
+  block:
+    - name: Allow access to Execution Client API port (Used by fallback)
+      community.general.ufw:
+        rule: allow
+        from_ip: "{{ firewall_fallback_allowed_network }}"
+        port: "{{ firewall_execution_client_api_port }}"
+        proto: tcp
+        comment: "Allow access to Execution Client API port (Used by fallback)"
+
+    - name: Allow access to Execution Client websocket port (Used by fallback)
+      community.general.ufw:
+        rule: allow
+        from_ip: "{{ firewall_fallback_allowed_network }}"
+        port: "{{ firewall_execution_client_websocket_port }}"
+        proto: tcp
+        comment: "Allow access to Execution Client websocket port (Used by fallback)"
+
+    - name: Allow access to Consensus Client API port (Used by fallback)
+      community.general.ufw:
+        rule: allow
+        from_ip: "{{ firewall_fallback_allowed_network }}"
+        port: "{{ firewall_consensus_client_api_port }}"
+        proto: tcp
+        comment: "Allow access to Consensus Client API port (Used by fallback)"
